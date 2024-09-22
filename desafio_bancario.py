@@ -1,0 +1,76 @@
+menu = """
+
+[d] Depositar
+[s] Sacar
+[e] Extrato
+[q] Sair
+
+
+"""
+
+saldo = 0
+limite = 500
+extrato = ""
+numero_saque = 0
+LIMITE_SAQUES = 3
+
+while True:
+    opcao = input(menu).lower()
+
+    if opcao == "d":
+        print("Depósito".center(20, "#"))
+        valor_deposito = input("Coloque o valor que deseja depositar: ")
+
+        if type(valor_deposito) is not float:
+            print("Insira um valor válido")
+            continue
+
+        if valor_deposito > 0:
+            saldo += valor_deposito
+            extrato += f"Depósito de R$ {valor_deposito:.2f}\n"
+        else:
+            print("Valor inválido para essa operação")
+
+    elif opcao == "s":
+        print("Saque".center(20, "#"))
+        valor_saque = input("Insira o valor do saque: ")
+
+        if type(valor_saque) is not float:
+            print("Insira um valor válido")
+            continue
+
+        if valor_saque > saldo:
+            print("Nâo há saldo suficiente!")
+            continue
+
+        if numero_saque >= LIMITE_SAQUES:
+            print("Você já sacou o limite diário!")
+            continue
+
+
+        elif valor_saque > 0:
+            saldo -= valor_saque
+            numero_saque += 1
+            extrato += f"Saque: R$ {valor_saque :.2f}\n"
+
+    elif opcao == "e":
+        if saldo == 0: continue
+        extrato_resumo = f"""
+        ================ INICIO EXTRATO ================
+        
+{extrato}
+Saldo atual: R$ {saldo:.2f}
+
+        ================== FIM EXTRATO =================
+        
+        """
+        print(extrato_resumo)
+
+
+
+    elif opcao == "q":
+        print("Sessão finalizada com sucesso, até breve!")
+        break
+
+    else:
+        print("Operação inválida, por favor selecione uma das opções disponíveis. Vamos tentar novamente? :)")
