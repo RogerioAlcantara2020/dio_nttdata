@@ -19,13 +19,15 @@ while True:
 
     if opcao == "d":
         print("Depósito".center(20, "#"))
-        valor_deposito = input("Coloque o valor que deseja depositar: ")
+        valor = input("Coloque o valor que deseja depositar: ")
 
-        if type(valor_deposito) is not float:
-            print("Insira um valor válido")
+        try:
+            valor_deposito = float(valor)
+        except:
+            print("Valor inválido!")
             continue
 
-        if valor_deposito > 0:
+        if float(valor_deposito) > 0:
             saldo += valor_deposito
             extrato += f"Depósito de R$ {valor_deposito:.2f}\n"
         else:
@@ -33,10 +35,12 @@ while True:
 
     elif opcao == "s":
         print("Saque".center(20, "#"))
-        valor_saque = input("Insira o valor do saque: ")
+        valor = input("Insira o valor do saque: ")
 
-        if type(valor_saque) is not float:
-            print("Insira um valor válido")
+        try:
+            valor_saque = float(valor)
+        except:
+            print("Valor inválido!")
             continue
 
         if valor_saque > saldo:
@@ -48,7 +52,7 @@ while True:
             continue
 
 
-        elif valor_saque > 0:
+        elif (valor_saque) > 0:
             saldo -= valor_saque
             numero_saque += 1
             extrato += f"Saque: R$ {valor_saque :.2f}\n"
